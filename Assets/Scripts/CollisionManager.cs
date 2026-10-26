@@ -28,11 +28,11 @@ public class CollisionManager : MonoBehaviour
                 break;
             case "LandingPad":
                 ManageCollision(landingAudioClip);
-                //landingParticleSystem.Play();
+                landingParticleSystem.Play();
                 break;
             case "Explosion":
                 ManageCollision(explosionAudioClip);
-                //explosionParticleSystem.Play();
+                explosionParticleSystem.Play();
                 break;
             default:
                 break;
