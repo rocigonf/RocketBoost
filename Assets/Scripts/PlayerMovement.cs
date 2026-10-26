@@ -4,16 +4,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Input Actions")]
     [SerializeField] private InputAction thrust;
     [SerializeField] private InputAction rotation;
+
+    [Header("Movement Settings")]
     [SerializeField] private float moveForce = 10f;
     [SerializeField] private float rotationForce = 100f;
 
+    [Header("Particle Systems")]
     [SerializeField] private ParticleSystem thrustParticleSystem;
     [SerializeField] private ParticleSystem thrustParticleSystemLeft;
     [SerializeField] private ParticleSystem thrustParticleSystemRight;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip thrustAudioClip;
+
     Rigidbody rb;
+    AudioSource audioSource;
 
     void OnEnable()
     {
@@ -24,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -92,19 +101,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartThrusting()
     {
-        // TODO: Activate Sound
-
         rb.AddRelativeForce(Vector3.up * moveForce);
 
         if (!thrustParticleSystem.isPlaying)
         {
             thrustParticleSystem.Play();
         }
+
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(thrustAudioClip);
+        }
     }
 
+    /// <summary>
+    /// Stops the thrusting action by stopping the particle system and audio source
+    /// </summary>
     private void StopThrusting()
     {
-        // TODO: Deactivate Particles, Deactivate Sound
         thrustParticleSystem.Stop();
+        audioSource.Stop();
     }
 }
