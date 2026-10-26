@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class RotationObstacle : MonoBehaviour
+public class RotationObstacles : MonoBehaviour
 {
     [SerializeField] private float duration = 2f;
 
